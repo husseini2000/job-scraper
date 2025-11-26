@@ -1,0 +1,38 @@
+# configs/sites.yml
+# Tunable per-site settings. Enable a site by setting `enabled: true`.
+wuzzuf:
+  enabled: true
+  base_url: "https://wuzzuf.net"
+  start_page: 1
+  max_pages: 3
+  rate_limit: 1.0  # seconds between requests
+
+gulftalent:
+  enabled: true
+  base_url: "https://www.gulftalent.com"
+  start_page: 1
+  max_pages: 2
+  rate_limit: 2.0
+
+# add other sites following the same structure
+bayt:
+  enabled: false
+  base_url: "https://www.bayt.com"
+  start_page: 1
+  max_pages: 5
+  rate_limit: 1.5
+
+naukrigulf:
+  enabled: true
+  base_url: "https://www.naukrigulf.com"
+  start_page: 1
+  max_pages: 4
+  rate_limit: 1.0
+
+monstergulf:
+  enabled: false
+  base_url: "https://www.monstergulf.com"
+  start_page: 1
+  max_pages: 3
+  rate_limit: 2.0
+
