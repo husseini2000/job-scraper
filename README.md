@@ -14,8 +14,21 @@ Designed for Data Engineering & Python practice using real-world scraping and pi
   <img src="https://img.shields.io/badge/Database-SQLite-lightgrey" />
   <img src="https://img.shields.io/badge/ETL-Pipeline-orange" />
   <img src="https://img.shields.io/badge/Status-Under%20Active%20Development-yellow" />
+  <img src="https://img.shields.io/github/actions/workflow/status/husseini2000/job-scraper/python-ci.yml?branch=main" alt="GitHub Actions" />
 
 </p>
+
+---
+
+---
+
+## 🔔 Current Status
+
+- **Status:** Active development — latest work on Pydantic models, packaging, and `Makefile`.
+- **Branch:** `chore/pydantic-packaging-makefile`
+- **Implemented:** Project skeleton, modular extract/transform/load layers, example scrapers, and basic test scaffolding.
+- **In Progress:** Pydantic-based data models, packaging improvements (pyproject/packaging), Makefile updates, and CI integration.
+- **Notes:** This repository is actively developed; some features and tests may be incomplete. Run `pytest -q` locally and review `requirements.txt` before using in production.
 
 ---
 
@@ -217,20 +230,20 @@ This project is divided into phases to help build a strong, production-worthy pi
 
 ---
 
-## 🧱 **PHASE 0 — Foundation & Environment (1 day)**
+## 🧱 **PHASE 0 — Foundation & Environment **
 
 **Goal:** Prepare the project structure and development environment.
 
 ### Tasks
 
-* Initialise Git repo
-* Create the directory structure
-* Add `.gitignore`, `requirements.txt`, `pyproject.toml` (optional)
-* Setup virtualenv
-* Add preliminary `README.md`
-* Create `Makefile`
-
-**Output:** Skeleton project.
+#### ✅ Project Structure: Organized, professional layout
+#### ✅ Virtual Environments: Isolated dependencies
+#### ✅ Dependency Management: requirements.txt
+#### ✅ Automation: Makefile for common tasks
+#### ✅ Version Control: .gitignore and git basics
+#### ✅ Testing: pytest with coverage
+#### ✅ Data Models: Pydantic for validation
+#### ✅ Code Quality: black, flake8, mypy setup
 
 ---
 
@@ -298,8 +311,16 @@ Cron job automation + final polish.
 
 # ❤️ Contributing
 
-Pull requests are welcome.
-If you're scrapers for additional job sites, follow the `example_site.py` template.
+Pull requests are welcome — thank you for contributing! To make contributions easy to review and merge, please follow this short checklist:
+
+- **Fork & Branch:** Fork the repo and create a feature branch named `feat/<short-desc>` or `fix/<short-desc>`.
+- **Sync:** Rebase or merge the latest `main` (or `master`) before opening a PR.
+- **Tests:** Add or update tests for any new behavior and run `pytest -q` locally.
+- **Type & Style:** Ensure code passes linters and type checks (e.g., `black`, `flake8`, `mypy` if configured).
+- **Docs:** Update `README.md` or relevant docs when adding features or changing usage.
+- **PR Description:** Include a clear description, motivation, and any migration steps; reference any related issues.
+
+If you're adding a scraper for a new job site, follow `extract/example_site.py` as a template and include a small sample output or fixture to help reviewers.
 
 ---
 
