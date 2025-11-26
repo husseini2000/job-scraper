@@ -1,0 +1,89 @@
+[project]
+name = "job-scraper"
+version = "0.1.0"
+description = "Job scraper for Middle East Data Engineering roles"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Al-Husseini", email = "husseiniahmed2015@gmail.com" }]
+requires-python = ">=3.10"
+keywords = ["scraper", "etl", "jobs", "web-scraping"]
+classifiers = [
+	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.10",
+	"Operating System :: OS Independent",
+]
+
+# runtime dependencies (kept in sync with requirements.txt)
+dependencies = [
+	"requests==2.31.0",
+	"beautifulsoup4==4.12.2",
+	"lxml==4.9.3",
+	"selenium==4.15.2",
+	"pandas==2.1.3",
+	"pydantic==2.5.0",
+	"sqlalchemy==2.0.23",
+	"pyyaml==6.0.1",
+	"python-dotenv==1.0.0",
+	"click==8.1.7",
+	"python-dateutil==2.8.2",
+	"pytz==2023.3",
+	"tqdm==4.66.1",
+]
+
+# CLI entry point (adjust callable if different)
+[project.scripts]
+job-scraper = "job_scraper.cli:main"
+
+[project.optional-dependencies]
+dev = [
+	"pytest==7.4.3",
+	"pytest-cov==4.1.0",
+	"pytest-mock==3.12.0",
+	"black==23.11.0",
+	"flake8==6.1.0",
+	"mypy==1.7.1",
+	"pre-commit",
+]
+
+[project.urls]
+Homepage = "https://github.com/husseini2000/job-scraper"
+Repository = "https://github.com/husseini2000/job-scraper"
+"Bug Tracker" = "https://github.com/husseini2000/job-scraper/issues"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+	"core*",
+	"job_scraper*",
+	"extract*",
+	"load*",
+	"pipeline*",
+	"transform*",
+	"metadata*",
+	"configs*",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203"]
+
+[tool.mypy]
+python_version = 3.10
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "--maxfail=1 -q"
+testpaths = ["tests"]
