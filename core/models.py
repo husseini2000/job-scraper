@@ -290,11 +290,10 @@ class ScraperConfig(BaseModel):
         return f"ScraperConfig({self.name}, enabled={self.enabled}, base_url={self.base_url})"
     
 class PipelineRun(BaseModel):
-    """
-    Model for tracking pipeline execution.
-    """
+    """Model for tracking pipeline execution."""
+    
     run_id: str
-    start_time: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    start_time: datetime = Field(default_factory=datetime.utcnow)
     end_time: Optional[datetime] = None
     status: str = Field("running", pattern="^(running|success|failed|partial)$")
     
@@ -302,53 +301,26 @@ class PipelineRun(BaseModel):
     scrapers_run: List[str] = Field(default_factory=list)
     jobs_extracted: int = 0
     jobs_transformed: int = 0
-    jobs_loaded: int = 0 
-    errors_count: int = 0 
+    jobs_loaded: int = 0
+    errors_count: int = 0
     
     # Details
-    errors: List[str] = Field(default_factory=list, max_length=1000) # List of error messages
-    warnings: List[str] = Field(default_factory=list, max_length=1000) # List of warning messages
-
-    scrapers: List[ScraperConfig] = Field(..., description="List of scraper configurations")
-    output_directory: str = Field(..., description="Directory to store scraped data") 
-    log_level: str = Field("INFO", description="Logging level")
-    max_concurrent_scrapes: int = Field(3, description="Maximum number of concurrent scrapes")
+    errors: List[str] = Field(default_factory=list, max_length=1000)
+    warnings: List[str] = Field(default_factory=list, max_length=1000)
     
-
     @property
     def duration_seconds(self) -> Optional[float]:
-        """Calculate the duration of the pipeline run in seconds."""
+        """Calculate run duration in seconds."""
         if self.end_time:
             return (self.end_time - self.start_time).total_seconds()
         return None
     
     @property
-    def success_rate(self) -> Optional[float]:
-        """Calculate the success rate of the pipeline run."""
-        total_jobs = self.jobs_extracted
-        if total_jobs > 0:
-            return self.jobs_loaded / total_jobs
-        return None
-
-    @field_validator('output_directory')
-    def validate_output_directory(cls, v):
-        if not v or not v.strip():
-            raise ValueError('Output directory cannot be empty')
-        return v
-    
-    @field_validator('max_concurrent_scrapes')
-    def validate_positive(cls, v):
-        if v <= 0:
-            raise ValueError('Value must be positive')
-        return v
-    
-    model_config = ConfigDict(
-        str_strip_whitespace=True,
-        use_enum_values=True
-    )
+    def success_rate(self) -> float:
+        """Calculate success rate."""
+        if self.jobs_extracted == 0:
+            return 0.0
+        return (self.jobs_loaded / self.jobs_extracted) * 100
     
     def __str__(self):
-        """String representation of the PipelineRun."""
-        return f"PipelineRun(output_directory={self.output_directory}, scrapers={len(self.scrapers)})"
-
-        
+        return f"PipelineRun({self.run_id}, status={self.status})"

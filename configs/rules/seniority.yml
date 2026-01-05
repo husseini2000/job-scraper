@@ -1,0 +1,113 @@
+# Seniority Level Detection Rules
+# Patterns to classify job seniority from title and description
+
+levels:
+  entry:
+    keywords:
+      - "entry level"
+      - "graduate"
+      - "fresh graduate"
+      - "trainee"
+      - "intern"
+      - "مبتدئ"
+      - "حديث التخرج"
+    experience_years:
+      min: 0
+      max: 1
+    priority: 1
+    
+  junior:
+    keywords:
+      - "junior"
+      - "associate"
+      - "مبتدئ"
+    experience_years:
+      min: 1
+      max: 3
+    priority: 2
+    
+  mid:
+    keywords:
+      - "mid level"
+      - "intermediate"
+      - "experienced"
+      - "متوسط الخبرة"
+    experience_years:
+      min: 3
+      max: 6
+    priority: 3
+    
+  senior:
+    keywords:
+      - "senior"
+      - "sr."
+      - "sr"
+      - "كبير"
+      - "أول"
+    experience_years:
+      min: 5
+      max: 10
+    priority: 4
+    
+  lead:
+    keywords:
+      - "lead"
+      - "principal"
+      - "staff"
+      - "قائد"
+      - "رئيسي"
+    experience_years:
+      min: 7
+      max: 15
+    priority: 5
+    
+  manager:
+    keywords:
+      - "manager"
+      - "head of"
+      - "engineering manager"
+      - "مدير"
+    experience_years:
+      min: 8
+      max: 20
+    priority: 6
+    
+  director:
+    keywords:
+      - "director"
+      - "vp"
+      - "vice president"
+      - "مدير عام"
+    experience_years:
+      min: 10
+      max: 30
+    priority: 7
+    
+  executive:
+    keywords:
+      - "cto"
+      - "ceo"
+      - "chief"
+      - "executive"
+      - "تنفيذي"
+    experience_years:
+      min: 15
+      max: 50
+    priority: 8
+
+# Detection strategy
+detection_strategy:
+  # Check title first (most reliable)
+  check_title: true
+  title_weight: 0.7
+  
+  # Then check experience requirements
+  check_experience: true
+  experience_weight: 0.3
+  
+  # Fallback to description if needed
+  check_description: false
+  description_weight: 0.1
+  
+  # If multiple matches, use highest priority
+  resolution: "highest_priority"

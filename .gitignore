@@ -57,9 +57,11 @@ metadata/run_history.json
 htmlcov/
 .tox/
 
-# Environment variables
+# Environment variables (CRITICAL - Never commit these!)
 .env
 .env.local
+.env.*.local
+*.env
 
 # Database files
 *.db

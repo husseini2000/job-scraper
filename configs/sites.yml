@@ -1,38 +1,95 @@
 # configs/sites.yml
-# Tunable per-site settings. Enable a site by setting `enabled: true`.
+# Job Scraper Sites Configuration
+# Each site has its own configuration for scraping parameters.
+# Enable a site by setting `enabled: true`.
+
 wuzzuf:
   enabled: true
   base_url: "https://wuzzuf.net"
-  start_page: 1
-  max_pages: 3
-  rate_limit: 1.0  # seconds between requests
+  search_url: "https://wuzzuf.net/search/jobs"
+  rate_limit: 10  # requests per minute
+  max_pages: 50
+  timeout: 30
+  requires_auth: false
+  selectors:
+    job_card: "div.css-1gatmva"
+    title: "h2 a"
+    company: "a[data-test='job-card-company-name']"
+    location: "span[data-test='job-card-location']"
+    posted_date: "div[data-test='job-card-posted-date']"
+
 
 gulftalent:
   enabled: true
   base_url: "https://www.gulftalent.com"
-  start_page: 1
-  max_pages: 2
-  rate_limit: 2.0
+  search_url: "https://www.gulftalent.com/jobs"
+  rate_limit: 5  # Slower, uses Selenium
+  max_pages: 30
+  timeout: 45
+  requires_auth: false
+  requires_selenium: true
+  selectors:
+    job_card: "div.job-result"
+    title: "h3.job-title"
+    company: "span.company"
 
 # add other sites following the same structure
 bayt:
   enabled: false
   base_url: "https://www.bayt.com"
-  start_page: 1
-  max_pages: 5
-  rate_limit: 1.5
+  search_url: "https://www.bayt.com/en/egypt/jobs"
+  rate_limit: 15
+  max_pages: 100
+  timeout: 30
+  requires_auth: false
+  api_based: true
+  selectors:
+    job_card: "li.has-pointer-d"
+    title: "h2.job-title"
+    company: "b.company-name"
+    location: "span.location"
 
 naukrigulf:
   enabled: true
   base_url: "https://www.naukrigulf.com"
-  start_page: 1
-  max_pages: 4
-  rate_limit: 1.0
+  search_url: "https://www.naukrigulf.com/jobs-in-uae"
+  rate_limit: 12
+  max_pages: 50
+  timeout: 30
+  requires_auth: false
 
-monstergulf:
-  enabled: false
-  base_url: "https://www.monstergulf.com"
-  start_page: 1
-  max_pages: 3
-  rate_limit: 2.0
+tanqeeb:
+  enabled: false  # Disabled by default
+  base_url: "https://www.tanqeeb.com"
+  search_url: "https://www.tanqeeb.com/en/jobs"
+  rate_limit: 10
+  max_pages: 40
+  timeout: 30
+  requires_auth: false
 
+drjobs:
+  enabled: true
+  base_url: "https://www.drjobs.ae"
+  search_url: "https://www.drjobs.ae/jobs"
+  rate_limit: 10
+  max_pages: 50
+  timeout: 30
+  requires_auth: false
+
+laimoon:
+  enabled: true
+  base_url: "https://www.laimoon.com"
+  search_url: "https://www.laimoon.com/jobs"
+  rate_limit: 8
+  max_pages: 30
+  timeout: 30
+  requires_auth: false
+
+akhtaboot:
+  enabled: true
+  base_url: "https://www.akhtaboot.com"
+  search_url: "https://www.akhtaboot.com/en/jobs"
+  rate_limit: 10
+  max_pages: 40
+  timeout: 30
+  requires_auth: false
